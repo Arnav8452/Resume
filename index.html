@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arnav Chandra</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --border: #222;
+      --accent: #e8e0d0;
+      --muted: #666;
+      --tag-bg: #1a1a1a;
+      --tag-border: #2a2a2a;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+    .nav-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+    }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .hero {
+      padding: 5rem 2rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-name em { font-style: italic; color: var(--muted); }
+    .hero-desc {
+      max-width: 560px;
+      color: #999;
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .hero-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .hero-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid #333;
+      padding-bottom: 2px;
+      transition: all 0.2s;
+    }
+    .hero-links a:hover { color: var(--accent); border-color: var(--accent); }
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem;
+    }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+    }
+    .exp-item {
+      background: var(--bg);
+      padding: 2rem;
+      transition: background 0.15s;
+    }
+    .exp-item:hover { background: var(--surface); }
+    .exp-meta {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .exp-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      margin-bottom: 0.25rem;
+    }
+    .exp-org {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .exp-bullets li {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.7;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: #444; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+    }
+    .project-card {
+      background: var(--bg);
+      padding: 1.75rem;
+      transition: background 0.15s;
+    }
+    .project-card:hover { background: var(--surface); }
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .project-stack {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+    .project-desc { font-size: 12px; color: #888; line-height: 1.7; }
+    .stat {
+      display: inline-block;
+      background: #1c1a15;
+      border: 1px solid #2e2a20;
+      color: #c8b878;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-top: 0.6rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      background: var(--border);
+    }
+    .skill-group { background: var(--bg); padding: 1.5rem; }
+    .skill-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      color: #777;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+    .edu-block {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 2rem;
+      align-items: start;
+      padding: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .edu-year { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; padding-top: 3px; }
+    .edu-degree {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+    .edu-school { font-size: 12px; color: var(--muted); }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+    @media (max-width: 600px) {
+      .grid-2, .projects-grid { grid-template-columns: 1fr; }
+      .hero-name { font-size: 2.2rem; }
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-name">Arnav Chandra</div>
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">AI &amp; Data Systems · Available Remote</div>
+    <h1 class="hero-name">Local-first<br><em>LLM pipelines.</em><br>Zero-cost scale.</h1>
+    <p class="hero-desc">I build agentic workflows and data products that run on commodity hardware — scraping, entity resolution, inference, enrichment — without cloud LLM spend.</p>
+    <div class="hero-links">
+      <a href="mailto:arnavchandra911@gmail.com">arnavchandra911@gmail.com</a>
+      <a href="https://linkedin.com/in/arnav-chandra-051813325" target="_blank">LinkedIn</a>
+      <a href="https://github.com/Arnav8452" target="_blank">GitHub</a>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <section id="experience">
+    <div class="section-label">Experience</div>
+    <div class="grid-2">
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span>Founder &amp; Lead Developer</span>
+          <span>Mar 2026 – Present</span>
+        </div>
+        <div class="exp-title">Closr</div>
+        <div class="exp-org">Remote</div>
+        <ul class="exp-bullets">
+          <li>Autonomous B2B lead engine across 9+ sources — Meta Ad Library, Reddit, ATS boards, news feeds</li>
+          <li>Local inference with Ollama/Qwen 2.5, zero-shot filtering, embeddings, entity resolution, Supabase persistence</li>
+          <li>Quota-aware contact discovery with worker concurrency, email validation, API fallback routing</li>
+          <li>241 signals → 42 companies, 106 contacts, 27 verified emails in ~92 minutes</li>
+        </ul>
+      </div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <span>Founder / Developer</span>
+          <span>Nov 2024 – May 2025</span>
+        </div>
+        <div class="exp-title">Zonedge</div>
+        <div class="exp-org">Prototype Phase · Remote</div>
+        <ul class="exp-bullets">
+          <li>Localized geo-intelligence prototype translating real-estate pricing and footfall signals into business strategy maps</li>
+          <li>Built with Leaflet and OpenRouteService</li>
+          <li>Validated lack of product-market fit and pivoted toward AI/data systems</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="projects">
+    <div class="section-label">Selected Projects</div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-title">Freeloader AI Gateway</div>
+        <div class="project-stack">TypeScript · Redis · Fastify · Docker · Turborepo</div>
+        <div class="project-desc">OpenAI-compatible gateway load-balancing requests across free-tier providers — Gemini, Groq, Cerebras. Redis-backed circuit breakers, SHA-256 caching, token accounting, dynamic model virtualization. Published to npm as @freeloaderapi/core.</div>
+        <div><span class="stat">9.43 req/s · 355 tok/s · 1.79s avg latency</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">Closr Lead Generator</div>
+        <div class="project-stack">Python · Ollama/Qwen · Supabase · Embeddings · Scraping APIs</div>
+        <div class="project-desc">Staged enrichment pipeline: keyword gates → zero-shot classification → semantic chunking → local LLM extraction → entity dedup → email discovery → quota-aware API fallback. Open-sourced on GitHub.</div>
+        <div><span class="stat">Open source</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">Closr Portfolio Builder</div>
+        <div class="project-stack">Next.js · NextAuth · Supabase · Python Workers · Ollama</div>
+        <div class="project-desc">Creator verification using OAuth root-node proof, secondary-link ingestion, queue-based scraping, and local LLM analysis into structured creator profiles. Monorepo with public profile pages and worker pipeline.</div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">Entity Resolution Graph / OSINT</div>
+        <div class="project-stack">Python · Neo4j · Streamlit · Ollama · BART-MNLI</div>
+        <div class="project-desc">Local OSINT pipeline — ingests live sources, zero-shot filters, extracts entities with local LLMs, resolves duplicates via fuzzy + vector matching. Streamlit/Neo4j dashboard with visual link analysis and graph-pattern tripwires.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="skills">
+    <div class="section-label">Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-label">Languages</div>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">AI / Data</div>
+        <div class="skill-tags">
+          <span class="tag">Ollama</span>
+          <span class="tag">Qwen</span>
+          <span class="tag">RAG</span>
+          <span class="tag">ReAct agents</span>
+          <span class="tag">Embeddings</span>
+          <span class="tag">BART-MNLI</span>
+          <span class="tag">Entity resolution</span>
+          <span class="tag">Vector search</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Backend / DBs</div>
+        <div class="skill-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Fastify</span>
+          <span class="tag">Redis</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Neo4j</span>
+          <span class="tag">SQLite</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Frontend</div>
+        <div class="skill-tags">
+          <span class="tag">React</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">Vite</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">DevOps</div>
+        <div class="skill-tags">
+          <span class="tag">Docker</span>
+          <span class="tag">Turborepo</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Playwright</span>
+          <span class="tag">npm workspaces</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <div class="section-label">Education</div>
+    <div class="edu-block">
+      <div class="edu-year">2024 – 2028</div>
+      <div>
+        <div class="edu-degree">B.E. &amp; B.S., Electrical, Electronics and Communications Engineering</div>
+        <div class="edu-school">BITS Pilani – Goa Campus &nbsp;/&nbsp; University at Buffalo (SEAS)</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Arnav Chandra &nbsp;·&nbsp; arnavchandra911@gmail.com &nbsp;·&nbsp; Available Remote
+  </footer>
+
+</body>
+</html>
